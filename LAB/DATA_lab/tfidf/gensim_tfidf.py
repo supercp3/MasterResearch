@@ -51,7 +51,7 @@ def ExtractKeyWords(k,word_weight):
 	return result
 
 
-def main():
+def mainx1():
  	x1,x2=read(lab_data)
  	wordlist=TokenToList(x1)
  	dictionary=ListToId(wordlist)
@@ -67,18 +67,59 @@ def main():
  		m=[]
  		n=[]
  		for i in range(len(x)):
- 			m.append({id2token[x[i][0]]:x[i][1]})
+ 			m.append((id2token[x[i][0]]+":"+str(round(x[i][1],3))))
  			n.append(id2token[x[i][0]])
  		result.append(m)
  		wordlist_result.append(n)
- 	for x in result:
- 		print(x)
- 	for y in wordlist_result:
- 		print(y)
 
+ 	with open("keyword/keyword1.txt","w+") as f:
+	 	for x in result:
+	 		m=[]
+	 		n=[]
+	 		for y in x:
+	 			print(y)
+	 			m.append(y.split(":")[0])
+	 			n.append(y.split(":")[1])
+	 			print(m,n)
+	 		r=" ".join(m)+"|"+" ".join(n)+"\n"
+	 		print(r)
+	 		f.write(r)
+ 	# for y in wordlist_result:
+ 	# 	print(y)
+ 			
+def mainx2():
+ 	x1,x2=read(lab_data)
+ 	wordlist=TokenToList(x2)
+ 	dictionary=ListToId(wordlist)
+ 	id2token = dict(zip(dictionary.token2id.values(), dictionary.token2id.keys()))
+ 	new_corpus=[dictionary.doc2bow(text) for text in wordlist]
+ 	# ModelTrain(new_corpus,"model2")
+ 	modelpath="model/model2.tfidf"
+ 	word_weight=LoadModel(modelpath,new_corpus)
+ 	result_id=ExtractKeyWords(5,word_weight)
+ 	result=[]
+ 	wordlist_result=[]
+ 	for x in result_id:
+ 		m=[]
+ 		n=[]
+ 		for i in range(len(x)):
+ 			m.append((id2token[x[i][0]]+":"+str(round(x[i][1],3))))
+ 			n.append(id2token[x[i][0]])
+ 		result.append(m)
+ 		wordlist_result.append(n)
 
-
-
+ 	with open("keyword/keyword2.txt","w+") as f:
+	 	for x in result:
+	 		m=[]
+	 		n=[]
+	 		for y in x:
+	 			m.append(y.split(":")[0])
+	 			n.append(y.split(":")[1])
+	 		r=" ".join(m)+"|"+" ".join(n)+"\n"
+	 		print(r)
+	 		f.write(r)
+	# for y in wordlist_result:
+ 	# 	print(y)
 
 if __name__=="__main__":
-	main()
+	mainx2()
