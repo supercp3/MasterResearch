@@ -2,6 +2,8 @@
 本文件输入为三个文件，file1.csv|file2.csv|map.csv
 输出问一个文件，lab_data.txt,文件格式为 0|entity1|entity2
 '''
+import random
+
 path1='data/data1/file1.csv'
 path2='data/data1/file2.csv'
 map_path='data/data1/map.csv'
@@ -23,7 +25,7 @@ def read(file):
 	dictx={}
 	for x in enumerate(index1): #对id建立字典索引，方便查找文件所指的行数
 		dictx[x[1]]=x[0]
-	print(dictx)
+	# print(dictx)
 	return data,dictx
 #读取匹配文件，然后分别利用id建立索引
 def read_map(file_map):
@@ -42,13 +44,25 @@ def write_map():
 	data1,dict1=read(path1)
 	data2,dict2=read(path2)
 	id1,id2=read_map(map_path)
-	with open("data/data1/lab_data.txt","w") as f:
+	with open("data/data1/lab_data/lab_map_data.txt","w") as f:
 		for i in range(len(id1)):
 			entity1=data1[dict1[id1[i]]]
 			entity2=data2[dict2[id2[i]]]
+			mid="1"+"|"+entity1.strip()+"|"+entity2.strip()
+			f.write(mid+'\n')
+
+def write_no_map():
+	data1,dict1 =read(path1)
+	data2,dict1 =read(path2)
+	print(data1)
+	with open("data/data1/lab_data/lab_nomap_data.txt","w") as f:
+		for i in range(1300):
+			entity1=data1[random.randint(1,len(data1)-1)]
+			entity2=data2[random.randint(1,len(data2)-1)]
 			mid="0"+"|"+entity1.strip()+"|"+entity2.strip()
 			f.write(mid+'\n')
 
 if __name__=="__main__":
 	write_map()
+	write_no_map()
 

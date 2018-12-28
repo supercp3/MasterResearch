@@ -32,12 +32,14 @@ def wordlist():
 	data=[]
 	for line in lines:
 		data.append(line.lower().strip().split())
-	for x in data:
+	#这里只取了数据集的前两行
+	for x in data[:2]:
 		yield x
 
 def Use_Model(modelpath):
 	model=word2vec.Word2Vec.load(modelpath)
 	# print(model['clickart'])
+	res=[]
 	i=0
 	for x in wordlist():
 		midvec=[]
@@ -47,22 +49,12 @@ def Use_Model(modelpath):
 			except:
 				continue
 			midvec.append(v)
+		res.append(midvec)
 		print("line: "+str(i))
 		print(midvec)
-		i+1
-	# data=wordlist()
-	# # vector=[]
-	# for x in data:
-	# 	midvec=[]
-	# 	for y in x:
-	# 		try:
-	# 			v=model[y]
-	# 		except:
-	# 			continue
-	# 		midvec.append(v)
-	# 		print(midvec)
-		# vector.append(midvec)
-	# print(vector)
+		i+=1
+	print("******finished!******")
+	print(res)
 
 def Choose_useModel(path):
 	modellist=os.listdir(path)
