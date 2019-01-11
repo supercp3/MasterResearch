@@ -27,23 +27,24 @@ def Choose_trainModel(path):
 	modelTrain(corpurspath,corpus,dim)
 
 def wordlist():
-	with open("keywords/word1.txt","r")as f:
+	with open("keywords/word2.txt","r")as f:
 		lines=f.readlines()
 	data=[]
 	for line in lines:
 		data.append(line.lower().strip().split())
 	#这里只取了数据集的前两行
-	for x in data[:2]:
-		yield x
+	return data
 
 def Use_Model(modelpath):
 	model=word2vec.Word2Vec.load(modelpath)
 	# print(model['clickart'])
 	res=[]
 	i=0
-	for x in wordlist():
+	data=wordlist()
+	for x in data:
 		midvec=[]
 		for y in x:
+			print(y)
 			try:
 				v=model[y]
 			except:
@@ -51,7 +52,6 @@ def Use_Model(modelpath):
 			midvec.append(v)
 		res.append(midvec)
 		print("line: "+str(i))
-		print(midvec)
 		i+=1
 	print("******finished!******")
 	print(res)
