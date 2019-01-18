@@ -1,0 +1,6 @@
+train:[1819]
+max accu: 0.99
+best threshold: 0.076
+
+test:[781]
+accuracy:0.988

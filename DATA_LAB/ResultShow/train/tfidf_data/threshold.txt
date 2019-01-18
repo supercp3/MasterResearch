@@ -1,0 +1,2 @@
+max accu: 0.99
+best threshold: 0.076

@@ -1,0 +1,6 @@
+train:[1819]
+max accuracy: 0.919
+best threshold: 0.038
+
+test:[781]
+accuracy:0.93
